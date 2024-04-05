@@ -10,16 +10,7 @@ const leer = require("prompt-sync")();
 
 
 function main() {
- let cant_plumas=0
- let peso_nimbus=0
- console.log("Cuanto es el peso base de la Nimbus?:");
- peso_nimbus=Number(leer())
- console.log("Cuantas plumas se utilizan?:");
- cant_plumas=Number(leer())
-peso_escoba=cant_plumas*0.1
-console.log("La cantidad de plumas que se necesitan son:",peso_escoba+peso_nimbus);
-
-
+    
 }
 
 

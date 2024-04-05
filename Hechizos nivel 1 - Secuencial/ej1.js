@@ -1,5 +1,7 @@
 const leer = require("prompt-sync")();
 
+
+
 /**
  * Ej 1 
  * Cálculo de Pociones
@@ -10,14 +12,7 @@ const leer = require("prompt-sync")();
 
 
 function main() {
- let raices_mandragora=0
- let escarabajos=0
- console.log("Cuantas raices de mandragora necesita para la pocion?: ");
- raices_mandragora=Number(leer())
- console.log("Cuantos escarabajos de ojo de tigre necesita para la pocion?: ");
- escarabajos=Number(leer())
- ingredientes=raices_mandragora+escarabajos
- console.log("La cantidad de ingredientes es: ",ingredientes);   
+    
 }
 
 

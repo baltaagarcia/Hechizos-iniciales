@@ -14,7 +14,27 @@ const leer = require("prompt-sync")();
 
 
 function main() {
-    
+    let calificacion = 0;
+
+    console.log("ingrese puntaje");
+    calificacion = Number(leer());
+    if (calificacion < 50) {
+        console.log(" entras casa de slytherin");
+
+    } else if ((calificacion >= 50) &&(calificacion < 70)) {
+        console.log("entras a ravenclaw");
+
+    }else if ((calificacion >= 70) &&(calificacion < 90)) {
+        console.log("entras a Hufflepuff");
+
+    }else if (calificacion > 90) {
+        console.log("Entras a Gryffindor ");
+
+
+
+
+    }
+
 }
 
 

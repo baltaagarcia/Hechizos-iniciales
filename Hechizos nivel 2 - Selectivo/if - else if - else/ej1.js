@@ -1,5 +1,5 @@
 const leer = require("prompt-sync")();
-
+const EDAD_MINIMA = 11
 /**
  * Ej 1 
  * Compra de Varitas Mágicas:
@@ -10,8 +10,15 @@ const leer = require("prompt-sync")();
  */
 
 
-function main() {
-    
+function main() { }
+let edad = 0
+console.log("Ingrese su edad: "); {
+    edad = Number(leer())
+    if (edad >= edad_minima) {
+        console.log("Puedes comprar la varita");
+    } else {
+        console.log("No puedes comprar la varita");
+    }
 }
 
 

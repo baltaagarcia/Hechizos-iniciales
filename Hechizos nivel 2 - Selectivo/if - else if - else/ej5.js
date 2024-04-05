@@ -11,8 +11,23 @@ const leer = require("prompt-sync")();
 
 
 function main() {
-    
+    let edad = 0
+    let perimiso_padres = 0
+    console.log("Cual es su edad?: ");
+    edad=Number(leer());
+    if (edad >= 17) {
+        console.log("Puedes entrar a hogwarts")
+    } else if ((edad < 17) && (edad > 13)) {
+        console.log("Tienes el permiso de tus padres? 1PARA SI 2 PARA NO");
+        perimiso_padres = Number(leer())
+        if (perimiso_padres == 1) {
+            console.log("Puedes entrar a Hogwarts");
+
+        }
+
+    }else{
+        console.log("No puedes entrar a Hogwarts");
+    }
+
 }
-
-
 main();
