@@ -49,7 +49,7 @@ function main() {
         if (hechizo == "Patronum") {
             console.log("Has elegido el hechizo Patronum adivina el numero para infligir daño, caso contrario lo recibiras tu");
             console.log("Adivina el numero secreto");
-            num_hechizo_lanzado = Number((leer))
+            num_hechizo_lanzado = Number(leer())
             if (num_hechizo_lanzado == NUM_PATRONUM_1) {
                 console.log("Bien has lanzado el hechizo correctamente");
                 console.log("Has infligido 80 de daño");
@@ -62,7 +62,7 @@ function main() {
         }else  if (hechizo == "Petrificius") {
             console.log("Has elegido el hechizo Petrificius adivina el numero para infligir daño. cosantrario lo recibiras tu");
             console.log("Adivina el numero secreto");
-            num_hechizo_lanzado = Number((leer))
+            num_hechizo_lanzado = Number(leer())
             if (num_hechizo_lanzado == NUM_PETRIFICUS_2) {
                 console.log("Bien has lanzado el hechizo correctamente");
                 console.log("Has infligido 100 de daño");
@@ -76,7 +76,7 @@ function main() {
         }else if (hechizo == "Confundus") {
             console.log("Has elegido el hechizo Confundus adivina el numero para infligir daño. cosantrario lo recibiras tu");
             console.log("Adivina el numero secreto");
-            num_hechizo_lanzado = Number((leer))
+            num_hechizo_lanzado = Number(leer())
             if (num_hechizo_lanzado == NUM_CONFUNDUS_3) {
                 console.log("Bien has lanzado el hechizo correctamente");
                 console.log("Has infligido 120 de daño");
