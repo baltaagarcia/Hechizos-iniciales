@@ -38,17 +38,6 @@ function probabilidad_esquivar_ataque(horrucrex_destruidos) {
 
 }
 
-function disminucion_de_puntos_de_vitalidad(eleccion_esquivar,puntos_cordura,puntos_salud){
-eleccion_esquivar=0
-if (eleccion_esquivar=1) {
-    return puntos_cordura=puntos_cordura-DAÑO_CORDURA
-
-}
-else{
-   return puntos_salud = puntos_salud - DAÑO_SALUD
-
-}}
-
 
 function main() {
     let puntos_salud = 400
@@ -60,12 +49,12 @@ function main() {
     let eleccion_esquivar = 0
 
     do {
-        if (horrucrex_destruidos = 0) {
+        if (horrucrex_destruidos== 0) {
             console.log("Intenta adivinar el codigo");
             console.log("El codigo empieza con R1dd13? donde ? es un numero aleatorio");
+            console.log(generador_numero_aleatorio_codigo1()); //borrar solo para comprobar el numero aleatorio
             ingreso_codigo = leer()
-            generador_numero_aleatorio_codigo1//borrar solo para comprobar el numero aleatorio
-            if (ingreso_codigo = codigo_1 + generador_numero_aleatorio_codigo1) {
+            if (ingreso_codigo == codigo_1 + generador_numero_aleatorio_codigo1()) {
                 horrucrex_destruidos = horrucrex_destruidos + 1
                 console.log("Has acertado el codigo, has eliminado un horrocrux");
                 console.log("Horrocruxes Eliminados", horrucrex_destruidos);
@@ -95,8 +84,7 @@ function main() {
                 }
             }
 
-        }else{
-            console.log("ddd");
+        
         }
     turnos++    
     }while (puntos_salud > 0 && puntos_cordura > 0 && turnos < 30 && muerte_instantanea(horrucrex_destruidos));
