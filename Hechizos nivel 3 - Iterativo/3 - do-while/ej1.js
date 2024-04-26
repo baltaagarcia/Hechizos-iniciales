@@ -37,6 +37,12 @@ function probabilidad_esquivar_ataque(horrucrex_destruidos) {
     return evasion_de_ataque
 
 }
+function generador_numero_aleatorio_codigo2() {
+    min = -100
+    max = -70
+    numero_aleatorio = Math.floor(Math.random() * (max - min + 1) + min);
+    return numero_aleatorio
+}
 
 
 function main() {
@@ -47,14 +53,56 @@ function main() {
     let codigo_1 = "R1dd13"
     let ingreso_codigo = ""
     let eleccion_esquivar = 0
+    let codigo_2 = "G4unt!"
+
 
     do {
-        if (horrucrex_destruidos== 0) {
+        if (horrucrex_destruidos == 0) {
             console.log("Intenta adivinar el codigo");
             console.log("El codigo empieza con R1dd13? donde ? es un numero aleatorio");
-            console.log(generador_numero_aleatorio_codigo1()); //borrar solo para comprobar el numero aleatorio
+            let codigo_real=generador_numero_aleatorio_codigo1()
+            console.log(codigo_real); //borrar solo para comprobar el numero aleatorio
+            console.log(codigo_1,codigo_real);
             ingreso_codigo = leer()
-            if (ingreso_codigo == codigo_1 + generador_numero_aleatorio_codigo1()) {
+            if (ingreso_codigo == (codigo_1+ String(codigo_real))) {
+                horrucrex_destruidos = horrucrex_destruidos + 1
+                console.log("Has acertado el codigo, has eliminado un horrocrux");
+                console.log("Horrocruxes Eliminados", horrucrex_destruidos);
+            } else {
+                console.log("Has errado con el codigo");
+                if (probabilidad_esquivar_ataque(horrucrex_destruidos) == true) {
+                    console.log("Gracias a tus dotes has logrado esquivar el ataque");
+                    console.log("Puedes elegir si esquivar el daño a tu salud(1) o a tu cordura(2): ");
+                    eleccion_esquivar = leer()
+                    if (eleccion_esquivar == 1) {
+                        puntos_cordura = actualizar_puntos_de(puntos_cordura,);
+                        console.log("Has esquivado el daño a tu salud");
+                        
+                    } else {
+                        puntos_salud = puntos_salud - DAÑO_SALUD
+                        console.log("Has esquivado el daño a tu cordura");
+                        
+                    }
+                    console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                        console.log("Puntos DE CORDURA RESTANTES", puntos_cordura); //esto podria estar en un procedimiento
+                } else {
+                    console.log("Has recibido daño se redujeron levemente tu salud y tu cordura");
+                    puntos_cordura = puntos_cordura - DAÑO_CORDURA
+                    puntos_salud = puntos_salud - DAÑO_SALUD
+                    console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                    console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
+                }
+            }
+
+
+        }else if (horrucrex_destruidos == 1) {
+            console.log("Intenta adivinar el codigo");
+            console.log("El codigo empieza con ?G4unt! donde ? es un numero aleatorio");
+            let codigo_real_2=generador_numero_aleatorio_codigo2(); //borrar solo para comprobar el numero aleatorio
+            console.log(codigo_real_2);
+            console.log(codigo_real_2,codigo_2,);
+            ingreso_codigo = leer()
+            if (ingreso_codigo ==codigo_real_2+codigo_2) {
                 horrucrex_destruidos = horrucrex_destruidos + 1
                 console.log("Has acertado el codigo, has eliminado un horrocrux");
                 console.log("Horrocruxes Eliminados", horrucrex_destruidos);
@@ -84,12 +132,20 @@ function main() {
                 }
             }
 
-        
         }
-    turnos++    
-    }while (puntos_salud > 0 && puntos_cordura > 0 && turnos < 30 && muerte_instantanea(horrucrex_destruidos));
-console.log("Estoy afuer adel while");
+
+
+
+        turnos++
+        console.log("Turnos utilizados", turnos);
+    } while (puntos_salud > 0 && puntos_cordura > 0 && turnos < 30 && muerte_instantanea(horrucrex_destruidos));
+    console.log("Estoy afuer adel while");
 }
 
 
 main();
+
+function actualizar_puntos_de(puntos_cordura,) {
+    puntos_cordura = puntos_cordura - DAÑO_CORDURA; //SE PUEDE HACER EN UNA SOLA FUNCION LA QUITA DE VIDA Y CORDURA
+    return puntos_cordura;
+}
