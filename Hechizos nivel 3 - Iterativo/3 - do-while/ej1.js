@@ -7,7 +7,9 @@ const VIVO = true
 const MUERTO = false
 const PROBABILIDAD_BASE_ESQUIVAR_ATAQUE = 50
 const DECREMENTO_FIJO_ESQUIVAR_ATAQUE = 11.875
-
+let puntos_salud = 400
+let puntos_cordura = 200
+let turnos = 0
 /**
  * Probabilidad de morir de un golpe
  * @param {number} horrucrex_destruidos la cantidad
@@ -21,12 +23,22 @@ function muerte_instantanea(horrucrex_destruidos) {
     }
     return estado_vida
 }
+/**
+ * genera el numero aleatorio del codigo
+ * @param {*} params 
+ * @returns el codigo aleatorio
+ */
 function generador_numero_aleatorio_codigo1(params) {
     min = -3
     max = 20
     numero_aleatorio = Math.floor(Math.random() * (max - min + 1) + min);
     return numero_aleatorio
 }
+/**
+ *saca la probabilidad para esquivar el ataque 
+ * @param {number} horrucrex_destruidos lo usa como parametro de multiplicador para bajar la probabilidad de esquivar ataque
+ * @returns en valor booleano si esquivas el ataque o no
+ */
 function probabilidad_esquivar_ataque(horrucrex_destruidos) {
     evasion_de_ataque = false
     probabilidad = Math.random() * 100
@@ -37,37 +49,43 @@ function probabilidad_esquivar_ataque(horrucrex_destruidos) {
     return evasion_de_ataque
 
 }
+/**
+ * genera el numero aleatorio del codigo2
+ * @returns el numero aleatorio del codigo
+ */
 function generador_numero_aleatorio_codigo2() {
     min = -100
     max = -70
     numero_aleatorio = Math.floor(Math.random() * (max - min + 1) + min);
     return numero_aleatorio
 }
-
+function generador_numero_aleatorio_codigo3(params) {
+    min = 4
+    max = 12
+    numero_aleatorio = Math.floor(Math.random() * (max - min + 1) + min)
+    return numero_aleatorio
+}
 
 function main() {
-    let puntos_salud = 400
-    let puntos_cordura = 200
-    let turnos = 0
     let horrucrex_destruidos = 0
     let codigo_1 = "R1dd13"
     let ingreso_codigo = ""
     let eleccion_esquivar = 0
     let codigo_2 = "G4unt!"
+    let codigo_3_v1 = "H3L"
+    let codigo_3_v2 = "ga!"
 
 
     do {
         if (horrucrex_destruidos == 0) {
             console.log("Intenta adivinar el codigo");
             console.log("El codigo empieza con R1dd13? donde ? es un numero aleatorio");
-            let codigo_real=generador_numero_aleatorio_codigo1()
+            let codigo_real = generador_numero_aleatorio_codigo1()
             console.log(codigo_real); //borrar solo para comprobar el numero aleatorio
-            console.log(codigo_1,codigo_real);
+            console.log(codigo_1, codigo_real);
             ingreso_codigo = leer()
-            if (ingreso_codigo == (codigo_1+ String(codigo_real))) {
-                horrucrex_destruidos = horrucrex_destruidos + 1
-                console.log("Has acertado el codigo, has eliminado un horrocrux");
-                console.log("Horrocruxes Eliminados", horrucrex_destruidos);
+            if (ingreso_codigo == (codigo_1 + String(codigo_real))) {
+                horrucrex_destruidos = actualizacion_horrocruxes_eliminados(horrucrex_destruidos);
             } else {
                 console.log("Has errado con el codigo");
                 if (probabilidad_esquivar_ataque(horrucrex_destruidos) == true) {
@@ -75,34 +93,32 @@ function main() {
                     console.log("Puedes elegir si esquivar el daño a tu salud(1) o a tu cordura(2): ");
                     eleccion_esquivar = leer()
                     if (eleccion_esquivar == 1) {
-                        puntos_cordura = actualizar_puntos_de(puntos_cordura,);
+                        puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA);
                         console.log("Has esquivado el daño a tu salud");
-                        
+
                     } else {
-                        puntos_salud = puntos_salud - DAÑO_SALUD
+                        puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
                         console.log("Has esquivado el daño a tu cordura");
-                        
+
                     }
-                    console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
-                        console.log("Puntos DE CORDURA RESTANTES", puntos_cordura); //esto podria estar en un procedimiento
                 } else {
                     console.log("Has recibido daño se redujeron levemente tu salud y tu cordura");
-                    puntos_cordura = puntos_cordura - DAÑO_CORDURA
-                    puntos_salud = puntos_salud - DAÑO_SALUD
-                    console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
-                    console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
-                }
+                    puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                    puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA)
+
+                } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
             }
 
 
-        }else if (horrucrex_destruidos == 1) {
+        } else if (horrucrex_destruidos == 1) {
             console.log("Intenta adivinar el codigo");
             console.log("El codigo empieza con ?G4unt! donde ? es un numero aleatorio");
-            let codigo_real_2=generador_numero_aleatorio_codigo2(); //borrar solo para comprobar el numero aleatorio
+            let codigo_real_2 = generador_numero_aleatorio_codigo2(); //borrar solo para comprobar el numero aleatorio
             console.log(codigo_real_2);
-            console.log(codigo_real_2,codigo_2,);
+            console.log(codigo_real_2, codigo_2,);
             ingreso_codigo = leer()
-            if (ingreso_codigo ==codigo_real_2+codigo_2) {
+            if (ingreso_codigo == codigo_real_2 + codigo_2) {
                 horrucrex_destruidos = horrucrex_destruidos + 1
                 console.log("Has acertado el codigo, has eliminado un horrocrux");
                 console.log("Horrocruxes Eliminados", horrucrex_destruidos);
@@ -113,27 +129,55 @@ function main() {
                     console.log("Puedes elegir si esquivar el daño a tu salud(1) o a tu cordura(2): ");
                     eleccion_esquivar = leer()
                     if (eleccion_esquivar == 1) {
-                        puntos_cordura = puntos_cordura - DAÑO_CORDURA //SE PUEDE HACER EN UNA SOLA FUNCION LA QUITA DE VIDA Y CORDURA
+                        puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA);
                         console.log("Has esquivado el daño a tu salud");
-                        console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
-                        console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
                     } else {
-                        puntos_salud = puntos_salud - DAÑO_SALUD
+                        puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
                         console.log("Has esquivado el daño a tu cordura");
-                        console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
-                        console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
                     }
                 } else {
                     console.log("Has recibido daño se redujeron levemente tu salud y tu cordura");
-                    puntos_cordura = puntos_cordura - DAÑO_CORDURA
-                    puntos_salud = puntos_salud - DAÑO_SALUD
-                    console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
-                    console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
-                }
+                    puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                    puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA)
+                } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
             }
+        }else if (horrucrex_destruidos==2) {
+            console.log("Intenta adivinar el codigo");
+            console.log("El codigo es H3l?ga! donde ? es un numero aleatorio");
+            let codigo_real_3 = generador_numero_aleatorio_codigo3()
+            console.log(codigo_real_3); //borrar solo para comprobar el numero aleatorio
+            console.log(codigo_3_v1, codigo_real_3,codigo_3_v2);
+            ingreso_codigo = leer()
+            if (ingreso_codigo == (codigo_3_v1 + codigo_real_3+codigo_3_v2)) {
+                horrucrex_destruidos = actualizacion_horrocruxes_eliminados(horrucrex_destruidos);
+            } else {
+                console.log("Has errado con el codigo");
+                if (probabilidad_esquivar_ataque(horrucrex_destruidos) == true) {
+                    console.log("Gracias a tus dotes has logrado esquivar el ataque");
+                    console.log("Puedes elegir si esquivar el daño a tu salud(1) o a tu cordura(2): ");
+                    eleccion_esquivar = leer()
+                    if (eleccion_esquivar == 1) {
+                        puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA);
+                        console.log("Has esquivado el daño a tu salud");
 
+                    } else {
+                        puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                        console.log("Has esquivado el daño a tu cordura");
+
+                    }
+                } else {
+                    console.log("Has recibido daño se redujeron levemente tu salud y tu cordura");
+                    puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                    puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA)
+
+                } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
+            }
+            
         }
 
+       
 
 
         turnos++
@@ -145,7 +189,19 @@ function main() {
 
 main();
 
-function actualizar_puntos_de(puntos_cordura,) {
-    puntos_cordura = puntos_cordura - DAÑO_CORDURA; //SE PUEDE HACER EN UNA SOLA FUNCION LA QUITA DE VIDA Y CORDURA
-    return puntos_cordura;
+function actualizacion_horrocruxes_eliminados(horrucrex_destruidos) {
+    horrucrex_destruidos = horrucrex_destruidos + 1;
+    console.log("Has acertado el codigo, has eliminado un horrocrux");
+    console.log("Horrocruxes Eliminados", horrucrex_destruidos);
+    return horrucrex_destruidos;
+}
+/**
+ * actualiza tus puntos despues de recibir un daño
+ * @param {*number} puntos_algo actualiza tus puntos de vida o de cordura 
+ * @param {*number} danio_algo acutaliza el daño tanto de cordura como de vida
+ * @returns 
+ */
+function actualizar_puntos_de(puntos_algo, danio_algo) {
+    puntos_algo = puntos_algo - danio_algo;
+    return puntos_algo;
 }
