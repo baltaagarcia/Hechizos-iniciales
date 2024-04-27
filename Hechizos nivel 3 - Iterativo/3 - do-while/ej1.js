@@ -260,15 +260,6 @@ function main() {
                 console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);}
 
             }
-
-
-
-
-
-
-
-
-
             turnos++
             console.log("Turnos utilizados", turnos);
         } while (puntos_salud > 0 && puntos_cordura > 0 && turnos < 30 && muerte_instantanea(horrucrex_destruidos)&& horrucrex_destruidos<5);
