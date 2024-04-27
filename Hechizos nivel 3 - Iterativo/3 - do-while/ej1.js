@@ -65,6 +65,34 @@ function generador_numero_aleatorio_codigo3(params) {
     numero_aleatorio = Math.floor(Math.random() * (max - min + 1) + min)
     return numero_aleatorio
 }
+/**
+ * genera un numero aleatorio del 97 a 101 correspondiente al codigo ascii entre a y e y despues se hace el cambio
+ * @returns el numero aleatorio del codigo 4
+ */
+function generador_caracter_aleatorio_codigo4() {
+
+    let numeroAleatorio = Math.floor(Math.random() * 5);
+
+    //  (97 a 101)
+    let codigoCaracter = 97 + numeroAleatorio;
+
+    let codigo_letra = String.fromCharCode(codigoCaracter);
+
+    return codigo_letra
+}
+function generador_caracter_aleatorio_codigo5() {
+
+    let numeroAleatorio = Math.floor(Math.random() * 4);
+
+    //  (72 a 75)
+    let codigoCaracter = 72 + numeroAleatorio;
+
+    let codigo_letra = String.fromCharCode(codigoCaracter);
+
+    return codigo_letra
+}
+
+
 
 function main() {
     let horrucrex_destruidos = 0
@@ -72,17 +100,17 @@ function main() {
     let ingreso_codigo = ""
     let eleccion_esquivar = 0
     let codigo_2 = "G4unt!"
-    let codigo_3_v1 = "H3L"
+    let codigo_3_v1 = "H3l"
     let codigo_3_v2 = "ga!"
+    let codigo_4 = "R4vena"
+    let codigo_5="N@9ini"
 
 
     do {
         if (horrucrex_destruidos == 0) {
             console.log("Intenta adivinar el codigo");
-            console.log("El codigo empieza con R1dd13? donde ? es un numero aleatorio");
+            console.log("El codigo empieza con R1dd13? donde ? es un numero aleatorio entre -3 y 20");
             let codigo_real = generador_numero_aleatorio_codigo1()
-            console.log(codigo_real); //borrar solo para comprobar el numero aleatorio
-            console.log(codigo_1, codigo_real);
             ingreso_codigo = leer()
             if (ingreso_codigo == (codigo_1 + String(codigo_real))) {
                 horrucrex_destruidos = actualizacion_horrocruxes_eliminados(horrucrex_destruidos);
@@ -113,10 +141,8 @@ function main() {
 
         } else if (horrucrex_destruidos == 1) {
             console.log("Intenta adivinar el codigo");
-            console.log("El codigo empieza con ?G4unt! donde ? es un numero aleatorio");
+            console.log("El codigo empieza con ?G4unt! donde ? es un numero aleatorio entre -100 y 70");
             let codigo_real_2 = generador_numero_aleatorio_codigo2(); //borrar solo para comprobar el numero aleatorio
-            console.log(codigo_real_2);
-            console.log(codigo_real_2, codigo_2,);
             ingreso_codigo = leer()
             if (ingreso_codigo == codigo_real_2 + codigo_2) {
                 horrucrex_destruidos = horrucrex_destruidos + 1
@@ -142,14 +168,12 @@ function main() {
                 } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
                 console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
             }
-        }else if (horrucrex_destruidos==2) {
+        } else if (horrucrex_destruidos == 2) {
             console.log("Intenta adivinar el codigo");
-            console.log("El codigo es H3l?ga! donde ? es un numero aleatorio");
+            console.log("El codigo es H3l?ga! donde ? es un numero aleatorio entre 4 y 12");
             let codigo_real_3 = generador_numero_aleatorio_codigo3()
-            console.log(codigo_real_3); //borrar solo para comprobar el numero aleatorio
-            console.log(codigo_3_v1, codigo_real_3,codigo_3_v2);
             ingreso_codigo = leer()
-            if (ingreso_codigo == (codigo_3_v1 + codigo_real_3+codigo_3_v2)) {
+            if (ingreso_codigo == (codigo_3_v1 + codigo_real_3 + codigo_3_v2)) {
                 horrucrex_destruidos = actualizacion_horrocruxes_eliminados(horrucrex_destruidos);
             } else {
                 console.log("Has errado con el codigo");
@@ -174,19 +198,86 @@ function main() {
                 } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
                 console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
             }
-            
-        }
 
-       
+        } else if (horrucrex_destruidos == 3) {
+            console.log("Intenta adivinar el codigo");
+            console.log("El codigo es ?R4vena donde ? es un caracter generado aleatoriaent entre a y e");
+            let codigo_real_4 = generador_caracter_aleatorio_codigo4()
+            ingreso_codigo = leer()
+            if (ingreso_codigo == (codigo_real_4 + codigo_4)) {
+                horrucrex_destruidos = actualizacion_horrocruxes_eliminados(horrucrex_destruidos)
+            } else {
+                console.log("Has errado con el codigo");
+                if (probabilidad_esquivar_ataque(horrucrex_destruidos) == true) {
+                    console.log("Gracias a tus dotes has logrado esquivar el ataque");
+                    console.log("Puedes elegir si esquivar el daño a tu salud(1) o a tu cordura(2): ");
+                    eleccion_esquivar = leer()
+                    if (eleccion_esquivar == 1) {
+                        puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA);
+                        console.log("Has esquivado el daño a tu salud");
+
+                    } else {
+                        puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                        console.log("Has esquivado el daño a tu cordura");
+
+                    }
+                } else {
+                    console.log("Has recibido daño se redujeron levemente tu salud y tu cordura");
+                    puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                    puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA)
+
+                } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);
+            }
+        } else if (horrucrex_destruidos == 4) {
+            console.log("Intenta adivinar el codigo");
+            console.log("el codigo es N@9ini? donde ? es un caracter generado aleatoriamente entre H y K");
+            let codigo_real_5 = generador_caracter_aleatorio_codigo5()
+            ingreso_codigo = leer()
+            if (ingreso_codigo == (codigo_5 + codigo_real_5)) {
+                horrucrex_destruidos = actualizacion_horrocruxes_eliminados(horrucrex_destruidos)
+            } else {
+                console.log("Has errado con el codigo");
+                if (probabilidad_esquivar_ataque(horrucrex_destruidos) == true) {
+                    console.log("Gracias a tus dotes has logrado esquivar el ataque");
+                    console.log("Puedes elegir si esquivar el daño a tu salud(1) o a tu cordura(2): ");
+                    eleccion_esquivar = leer()
+                    if (eleccion_esquivar == 1) {
+                        puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA);
+                        console.log("Has esquivado el daño a tu salud");
+
+                    } else {
+                        puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                        console.log("Has esquivado el daño a tu cordura");
+
+                    }
+                } else {
+                    console.log("Has recibido daño se redujeron levemente tu salud y tu cordura");
+                    puntos_salud = actualizar_puntos_de(puntos_salud, DAÑO_SALUD)
+                    puntos_cordura = actualizar_puntos_de(puntos_cordura, DAÑO_CORDURA)
+
+                } console.log("PUNTOS DE SALUD RESTANTES", puntos_salud);
+                console.log("Puntos DE CORDURA RESTANTES", puntos_cordura);}
+
+            }
 
 
-        turnos++
-        console.log("Turnos utilizados", turnos);
-    } while (puntos_salud > 0 && puntos_cordura > 0 && turnos < 30 && muerte_instantanea(horrucrex_destruidos));
-    console.log("Estoy afuer adel while");
-}
 
 
+
+
+
+
+
+            turnos++
+            console.log("Turnos utilizados", turnos);
+        } while (puntos_salud > 0 && puntos_cordura > 0 && turnos < 30 && muerte_instantanea(horrucrex_destruidos)&& horrucrex_destruidos<5);
+    if (horrucrex_destruidos==5) {
+        console.log(" ¡Victoria para el estudiante valiente que, con coraje y determinación, ha destruido todos los horrocruxes! Con cada fragmento de alma oscura eliminado, la luz de la esperanza ha brillado más brillante sobre el mundo mágico. ¡Su sacrificio y valentía han salvado a nuestra comunidad de las sombras de la oscuridad, asegurando un futuro lleno de paz y prosperidad para todas las generaciones venideras!");
+        
+    }else{
+        console.log("En el oscuro manto de la derrota, el estudiante enfrentó una verdad devastadora: a pesar de sus esfuerzos incansables, los horrocruxes permanecen intactos, y la sombra del mal se alza triunfante sobre el mundo mágico. Aunque la batalla fue ardua y valiente, el destino ha dictado su veredicto, dejando al estudiante con el amargo sabor de la derrota. Pero incluso en la oscuridad más profunda, la llama de la esperanza aún arde, recordando que la lucha nunca termina y que el mañana siempre guarda la promesa de una nueva oportunidad para la redención y la victoria.");
+    }}
 main();
 
 function actualizacion_horrocruxes_eliminados(horrucrex_destruidos) {
